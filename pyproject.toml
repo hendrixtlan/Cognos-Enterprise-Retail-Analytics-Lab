@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cognos-retail-analytics-lab"
+version = "0.2.0"
+description = "Reproducible retail warehouse, validated SQL benchmark and Cognos 12 modeling contracts"
+requires-python = ">=3.10"
+dependencies = ["psycopg[binary]>=3.1,<4", "numpy>=1.24,<3"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "ruff>=0.6,<1"]
+
+[project.scripts]
+retail-lab = "retail_lab.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]

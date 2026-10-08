@@ -1,0 +1,10 @@
+from_query_subject,to_query_subject,join,cardinality,source_grain,notes
+dim_date,fact_sales,date_key,1:N,date->sale_line,dimension key unique
+dim_store,fact_sales,store_key,1:N,store->sale_line,dimension key unique
+dim_product,fact_sales,product_key,1:N,product->sale_line,dimension key unique
+dim_date,fact_inventory_daily,date_key,1:N,date->date_store_product,inventory snapshot grain
+dim_store,fact_inventory_daily,store_key,1:N,store->date_store_product,inventory snapshot grain
+dim_product,fact_inventory_daily,product_key,1:N,product->date_store_product,inventory snapshot grain
+dim_date,mv_sales_daily,date_key,1:N,date->date_store_product,aggregated separate business query path
+dim_store,mv_sales_daily,store_key,1:N,store->date_store_product,aggregated separate business query path
+dim_product,mv_sales_daily,product_key,1:N,product->date_store_product,aggregated separate business query path

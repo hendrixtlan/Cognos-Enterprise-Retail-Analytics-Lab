@@ -1,0 +1,9 @@
+query_subject,determinant_name,key_items,unique,group_by,comments
+dim_date,By Day,date_key,true,false,unique date key
+dim_date,By Year Month,calendar_year;calendar_month,false,true,month is not unique across years
+dim_date,By Year,calendar_year,false,true,year is not unique
+dim_store,Store Key,store_key,true,false,unique store
+dim_product,Product Key,product_key,true,false,unique product
+fact_sales,Sale Line,sale_id,true,false,line-grain fact
+fact_inventory_daily,Inventory Snapshot,date_key;store_key;product_key,true,false,unique daily inventory grain
+mv_sales_daily,Daily Sales Product,date_key;store_key;product_key,true,false,unique aggregate grain

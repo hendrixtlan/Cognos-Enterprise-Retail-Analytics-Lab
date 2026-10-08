@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "namespace": "Retail Analytics",
+  "metrics": [
+    {"id": "net_revenue", "definition": "SUM(sales_amount)", "source": "mart.fact_sales", "grain": "sale_line", "aggregation": "additive", "format": "currency"},
+    {"id": "cost", "definition": "SUM(cost_amount)", "source": "mart.fact_sales", "grain": "sale_line", "aggregation": "additive", "format": "currency"},
+    {"id": "gross_profit", "definition": "SUM(sales_amount) - SUM(cost_amount)", "source": "mart.fact_sales", "grain": "sale_line", "aggregation": "additive", "format": "currency"},
+    {"id": "gross_margin_pct", "definition": "(SUM(sales_amount) - SUM(cost_amount)) / NULLIF(SUM(sales_amount), 0)", "source": "mart.fact_sales", "grain": "query_result", "aggregation": "non_additive", "format": "percentage"},
+    {"id": "units_sold", "definition": "SUM(quantity)", "source": "mart.fact_sales", "grain": "sale_line", "aggregation": "additive", "format": "integer"},
+    {"id": "sales_line_count", "definition": "COUNT(*)", "source": "mart.fact_sales", "grain": "sale_line", "aggregation": "additive", "format": "integer"},
+    {"id": "distinct_orders", "definition": "COUNT(DISTINCT order_id)", "source": "mart.fact_sales", "grain": "query_result", "aggregation": "non_additive", "format": "integer"},
+    {"id": "avg_order_value", "definition": "SUM(sales_amount) / NULLIF(COUNT(DISTINCT order_id), 0)", "source": "mart.fact_sales", "grain": "query_result", "aggregation": "non_additive", "format": "currency"},
+    {"id": "inventory_on_hand", "definition": "SUM(on_hand_units) at one specified snapshot date", "source": "mart.fact_inventory_daily", "grain": "date_store_product", "aggregation": "semi_additive", "non_additive_across": ["date"], "format": "integer"},
+    {"id": "inventory_latest", "definition": "SUM(on_hand_units) at the latest snapshot date in the reporting scope", "source": "mart.fact_inventory_daily", "grain": "date_store_product", "aggregation": "semi_additive", "non_additive_across": ["date"], "format": "integer"}
+  ]
+}
